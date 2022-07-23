@@ -16,6 +16,6 @@ public class AppInitDev implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        devService.initializeDatabase();
+//        devService.initializeDatabase();
     }
 }

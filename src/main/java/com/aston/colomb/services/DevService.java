@@ -72,7 +72,7 @@ public class DevService {
                         2,
                         40,
                         false,
-                        false,
+                        true,
                         40.22,
                         22.22),
                 new Evenement(

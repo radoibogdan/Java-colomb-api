@@ -34,10 +34,8 @@ public class Compte {
     )
     private Set<Evenement> evenementsLiked = new HashSet<>();
 
-
     @OneToMany(mappedBy = "compte") // OneToMany Un Compte peut donner plusieurs Review
     private Set<Review> reviews = new HashSet<>();
-
 
     @OneToMany(mappedBy = "compte") // OneToMany Un Compte peut créer plusieurs Evenement
     private Set<Evenement> evenementsCrees = new HashSet<>();

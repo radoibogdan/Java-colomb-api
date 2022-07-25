@@ -3,6 +3,9 @@ package com.aston.colomb.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -12,11 +15,16 @@ public class Compte {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Email(message = "L'e-mail n'est pas valide.")
     private String email;
+    @Max(value = 30, message = "Le login d'un utilisateur doit avoir maximum 30 caractères.")
     private String login;
     private String passwordHash;
+    @Size(min = 2, max = 30, message = "Le nom d'un utilisateur doit avoir entre 2 et 40 caractères")
     private String nom;
+    @Size(min = 2, max = 30, message = "Le prénom d'un utilisateur doit avoir entre 2 et 40 caractères")
     private String prenom;
+    @Max(value = 50, message = "L'adresse d'un utilisateur doit avoir maximum 50 caractères.")
     private String adresse;
     private Date dob;
     private String photo;

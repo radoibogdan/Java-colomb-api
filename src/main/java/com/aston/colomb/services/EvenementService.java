@@ -2,6 +2,7 @@ package com.aston.colomb.services;
 
 import com.aston.colomb.dao.EvenementRepository;
 import com.aston.colomb.entities.Evenement;
+import com.aston.colomb.exception.EvenementNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +30,11 @@ public class EvenementService {
     }
 
     public Optional<Evenement> findEvenementById(Integer id) {
-        return evenementRepository.findById(id);
+        Optional<Evenement> evenementOptional = evenementRepository.findById(id);
+        if (!evenementOptional.isPresent()) {
+            throw new EvenementNotFoundException("L'événement que vous voulez accéder n'existe pas.");
+        }
+        return evenementOptional;
     }
 
     public List<Evenement> getAllEvenementsEntreprise(Integer id) {
@@ -42,13 +47,23 @@ public class EvenementService {
 
     public void updateEvenementEstSuspendu(Integer id, Evenement evenement) {
         Evenement evenementBdd = evenementRepository.findById(id).get();
-        boolean estSuspendu = evenement.getEstSuspendu();
-        System.out.println(estSuspendu);
-        evenementBdd.setEstSuspendu(estSuspendu);
+        if (evenementBdd == null) {
+            throw new EvenementNotFoundException("L'événement que vous voulez modifier n'existe pas.");
+        }
+        evenementBdd.setEstSuspendu(evenement.getEstSuspendu());
         evenementRepository.save(evenementBdd);
     }
 
     public void deleteEvenement(Integer id) {
-        evenementRepository.deleteById(id);
+        Optional<Evenement> evenementOptional = evenementRepository.findById(id);
+        if (!evenementOptional.isPresent()) {
+            throw new EvenementNotFoundException("L'événement que vous voulez supprimer n'existe pas.");
+        }
+        evenementRepository.delete(evenementOptional.get());
+    }
+
+    public Optional<Evenement> editEvenement(Integer id, Evenement evenement) {
+        Evenement evenementBdd = evenementRepository.findById(id).get();
+
     }
 }

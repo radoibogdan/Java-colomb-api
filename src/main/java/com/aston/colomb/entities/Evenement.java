@@ -3,9 +3,9 @@ package com.aston.colomb.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.util.Date;
+import javax.validation.constraints.*;
+import java.time.LocalDateTime;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -13,15 +13,21 @@ public class Evenement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Size(min = 5, max = 40, message = "Le nom de l'événement doit avoir entre 5 et 40 caractères")
     private String nom;
-    private Date date;
-    private Date heureOuverture;
-    private Date heureFermeture;
+    @FutureOrPresent(message = "L'événement ne peut être créé que dans le futur ou pour aujourd'hui.")
+    private LocalDateTime date;
+    private LocalDateTime heureOuverture;
+    private LocalDateTime heureFermeture;
+    @PositiveOrZero(message = "Le prix de l'événement ne peut pas être négatif.")
     private Float prix;
+    @Size(min = 10, max = 50, message = "L'adresse de l'événement doit avoir doit avoir entre 10 et 50 caractères.")
     private String adresse;
     private String categorie;
     private String photo;
+    @Size(min = 10, max = 500, message = "La description de l'événement doit avoir entre 10 et 500 caractères.")
     private String description;
+    @Positive(message = "Le nombre de personnes qui peuvent accéder à l'événement ne peut pas être négatif ou zéro.")
     private Integer nombrePersMax;
     private Integer nombreLikes;
     private Integer nombreVues;
@@ -48,7 +54,7 @@ public class Evenement {
     public Evenement() {
     }
 
-    public Evenement(String nom, Date date, Date heureOuverture, Date heureFermeture, Float prix, String adresse, String categorie, String photo, String description, Integer nombrePersMax, Integer nombreLikes, Integer nombreVues, Boolean estSignale, Boolean estSuspendu, double longitude, double latitude) {
+    public Evenement(String nom, LocalDateTime date, LocalDateTime heureOuverture, LocalDateTime heureFermeture, Float prix, String adresse, String categorie, String photo, String description, Integer nombrePersMax, Integer nombreLikes, Integer nombreVues, Boolean estSignale, Boolean estSuspendu, double longitude, double latitude) {
         this.nom = nom;
         this.date = date;
         this.heureOuverture = heureOuverture;
@@ -67,7 +73,7 @@ public class Evenement {
         this.latitude = latitude;
     }
 
-    public Evenement(Integer id, String nom, Date date, Date heureOuverture, Date heureFermeture, Float prix, String adresse, String categorie, String photo, String description, Integer nombrePersMax, Integer nombreLikes, Integer nombreVues, Boolean estSignale, Boolean estSuspendu, double longitude, double latitude) {
+    public Evenement(Integer id, String nom, LocalDateTime date, LocalDateTime heureOuverture, LocalDateTime heureFermeture, Float prix, String adresse, String categorie, String photo, String description, Integer nombrePersMax, Integer nombreLikes, Integer nombreVues, Boolean estSignale, Boolean estSuspendu, double longitude, double latitude) {
         this.id = id;
         this.nom = nom;
         this.date = date;
@@ -103,27 +109,27 @@ public class Evenement {
         this.nom = nom;
     }
 
-    public Date getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 
-    public Date getHeureOuverture() {
+    public LocalDateTime getHeureOuverture() {
         return heureOuverture;
     }
 
-    public void setHeureOuverture(Date heureOuverture) {
+    public void setHeureOuverture(LocalDateTime heureOuverture) {
         this.heureOuverture = heureOuverture;
     }
 
-    public Date getHeureFermeture() {
+    public LocalDateTime getHeureFermeture() {
         return heureFermeture;
     }
 
-    public void setHeureFermeture(Date heureFermeture) {
+    public void setHeureFermeture(LocalDateTime heureFermeture) {
         this.heureFermeture = heureFermeture;
     }
 

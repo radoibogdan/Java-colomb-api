@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.concurrent.ThreadLocalRandom;
@@ -60,9 +62,9 @@ public class DevService {
                 new Evenement(
                         1,
                         "Evenement Comedie",
-                        new Date(2022, 5, 20, 0, 0, 0),
-                        new Date(2022, 5, 20, 9, 0, 0),
-                        new Date(2022, 5, 20, 18, 0, 0),
+                        LocalDateTime.of(2022, Month.MAY, 20, 00, 30, 0),
+                        LocalDateTime.of(2022, Month.MAY, 20, 9, 30, 0),
+                        LocalDateTime.of(2022, Month.MAY, 20, 18, 30, 0),
                         40F,
                         "40 rue de Evenement",
                         "musée",
@@ -78,9 +80,9 @@ public class DevService {
                 new Evenement(
                         2,
                         "Stand-up Pierre Thevenoux",
-                        new Date(2022, 5, 20, 0, 0, 0),
-                        new Date(2022, 5, 20, 9, 0, 0),
-                        new Date(2022, 5, 20, 18, 0, 0),
+                        LocalDateTime.of(2022, Month.MAY, 20, 00, 30, 0),
+                        LocalDateTime.of(2022, Month.MAY, 20, 9, 30, 0),
+                        LocalDateTime.of(2022, Month.MAY, 20, 18, 30, 0),
                         40F,
                         "40 rue de Evenement",
                         "théâtre",
@@ -96,9 +98,9 @@ public class DevService {
                 new Evenement(
                         3,
                         "Festival de Jazz",
-                        new Date(2022, 5, 20, 0, 0, 0),
-                        new Date(2022, 5, 20, 9, 0, 0),
-                        new Date(2022, 5, 20, 18, 0, 0),
+                        LocalDateTime.of(2022, Month.MAY, 20, 00, 30, 0),
+                        LocalDateTime.of(2022, Month.MAY, 20, 9, 30, 0),
+                        LocalDateTime.of(2022, Month.MAY, 20, 18, 30, 0),
                         40F,
                         "40 rue de Evenement",
                         "musique",
@@ -121,35 +123,35 @@ public class DevService {
         reviewRepository.saveAll(Arrays.asList(
                 new Review(
                         1,
-                        new Date(),
+                        LocalDateTime.now(),
                         4,
                         22,
                         "Sympa mais pas plus, je veux veux un remboursement",
                         false),
                 new Review(
                         2,
-                        new Date(),
+                        LocalDateTime.now(),
                         5,
                         2,
                         "Ingenieux et spectaculaire",
                         true),
                 new Review(
                         3,
-                        new Date(),
+                        LocalDateTime.now(),
                         4,
                         1,
                         "Bref, je reviendrai pas",
                         false),
                 new Review(
                         4,
-                        new Date(),
+                        LocalDateTime.now(),
                         1,
                         0,
                         "Sympa mais pas plus, je veux veux un remboursement",
                         false),
                 new Review(
                         5,
-                        new Date(),
+                        LocalDateTime.now(),
                         4,
                         200,
                         "Moyen mais pas cher, je ne recommande pas",

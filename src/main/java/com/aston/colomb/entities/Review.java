@@ -3,14 +3,14 @@ package com.aston.colomb.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private Date date;
+    private LocalDateTime date;
     private Integer nombreEtoiles;
     private Integer nombreLikes;
     private String contenu;
@@ -31,7 +31,7 @@ public class Review {
     public Review() {
     }
 
-    public Review(Date date, Integer nombreEtoiles, Integer nombreLikes, String contenu, Boolean estSignale) {
+    public Review(LocalDateTime date, Integer nombreEtoiles, Integer nombreLikes, String contenu, Boolean estSignale) {
         this.date = date;
         this.nombreEtoiles = nombreEtoiles;
         this.nombreLikes = nombreLikes;
@@ -39,7 +39,7 @@ public class Review {
         this.estSignale = estSignale;
     }
 
-    public Review(Integer id, Date date, Integer nombreEtoiles, Integer nombreLikes, String contenu, Boolean estSignale) {
+    public Review(Integer id, LocalDateTime date, Integer nombreEtoiles, Integer nombreLikes, String contenu, Boolean estSignale) {
         this.id = id;
         this.date = date;
         this.nombreEtoiles = nombreEtoiles;
@@ -56,11 +56,11 @@ public class Review {
         this.id = id;
     }
 
-    public Date getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 

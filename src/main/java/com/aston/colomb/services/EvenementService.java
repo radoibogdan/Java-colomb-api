@@ -2,6 +2,7 @@ package com.aston.colomb.services;
 
 import com.aston.colomb.dao.EvenementRepository;
 import com.aston.colomb.entities.Evenement;
+import com.aston.colomb.entities.EvenementMapper;
 import com.aston.colomb.exception.EvenementNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,10 +16,12 @@ import java.util.Optional;
 public class EvenementService {
 
     private final EvenementRepository evenementRepository;
+    private final EvenementMapper evenementMapper;
 
     @Autowired
-    public EvenementService(EvenementRepository evenementRepository) {
+    public EvenementService(EvenementRepository evenementRepository, EvenementMapper evenementMapper) {
         this.evenementRepository = evenementRepository;
+        this.evenementMapper = evenementMapper;
     }
 
     public List<Evenement> getAllEvenements() {
@@ -62,8 +65,14 @@ public class EvenementService {
         evenementRepository.delete(evenementOptional.get());
     }
 
-    public Optional<Evenement> editEvenement(Integer id, Evenement evenement) {
-        Evenement evenementBdd = evenementRepository.findById(id).get();
-
+    public Evenement editEvenement(Integer id, Evenement evenement) {
+        Optional<Evenement> evenementOptional = evenementRepository.findById(id);
+        if (!evenementOptional.isPresent()) {
+            throw new EvenementNotFoundException("L'événement que vous voulez modifier n'existe pas.");
+        }
+        Evenement evenementBdd = evenementOptional.get();
+        evenementMapper.updateEvenement(evenement, evenementBdd);
+        evenementRepository.save(evenementBdd);
+        return evenementBdd;
     }
 }

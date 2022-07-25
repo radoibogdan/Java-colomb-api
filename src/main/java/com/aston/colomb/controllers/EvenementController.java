@@ -105,8 +105,8 @@ public class EvenementController {
             @ApiResponse(responseCode = "400", description = "Les informations envoyés sont incorrectes.", content = @Content),
             @ApiResponse(responseCode = "404", description = "Evénement non trouvé", content = @Content)
     })
-    public ResponseEntity<Evenement> editEvenement(@PathVariable Integer id, @Valid @RequestBody Evenement evenement) {
-        return ResponseEntity.of(evenementService.editEvenement(id, evenement)); // created = 201
+    public Evenement editEvenement(@PathVariable Integer id, @Valid @RequestBody Evenement evenement) {
+        return evenementService.editEvenement(id, evenement); // created = 201
     }
 
     /* ------------------ PATCH - EDIT - EST SIGNALE ------------------ */

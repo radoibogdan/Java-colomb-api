@@ -50,6 +50,7 @@ public class ReviewController {
 //        return reviewService.getAllReviewsEntreprise(id);
 //    }
 
+
     /* ------------------ GET All Reviews Reported ------------------ */
     @GetMapping("/reported")
     @ApiResponses(value = {
@@ -61,6 +62,7 @@ public class ReviewController {
     public List<Review> findAllReported() {
         return reviewService.getAllReviewsReported();
     }
+
 
     /* ------------------ GET by Id ------------------ */
     // Le ResponseEntity.of renvoie un Body vide + 404 dans le cas d'un Optional vide, OR Body avec le Review + 200
@@ -76,6 +78,7 @@ public class ReviewController {
     public ResponseEntity<Review> findById(@PathVariable Integer id) {
         return ResponseEntity.of(reviewService.findReviewById(id));
     }
+
 
     /* ------------------ POST CREATE ------------------ */
     @PostMapping
@@ -95,6 +98,7 @@ public class ReviewController {
         return ResponseEntity.created(uri).body(reviewCree); // created = 201
     }
 
+
     /* ------------------ PATCH EDIT ------------------ */
     @PatchMapping("/{id}")
     @ApiResponses(value = {
@@ -109,6 +113,7 @@ public class ReviewController {
         return reviewService.editReview(id, review); // created = 201
     }
 
+
     /* ------------------ PATCH - EDIT - EST SIGNALE ------------------ */
     @PatchMapping("/{id}/reported")
     @ApiResponses(value = {
@@ -118,6 +123,7 @@ public class ReviewController {
     public void updateReviewEstSignale(@PathVariable Integer id, @RequestBody Review review) {
         reviewService.updateReviewEstSuspendu(id, review);
     }
+
 
     /* ------------------ DELETE ------------------ */
     @DeleteMapping("/{id}")

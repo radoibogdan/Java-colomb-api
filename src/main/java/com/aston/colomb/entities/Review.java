@@ -3,6 +3,7 @@ package com.aston.colomb.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Entity
@@ -13,6 +14,7 @@ public class Review {
     private LocalDateTime date;
     private Integer nombreEtoiles;
     private Integer nombreLikes;
+    @Size(min = 10, max = 500, message = "La description de l'avis doit avoir entre 10 et 500 caractères.")
     private String contenu;
     private Boolean estSignale;
 

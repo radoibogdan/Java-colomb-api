@@ -40,11 +40,11 @@ public class Evenement {
     @ManyToMany(mappedBy = "evenementsLiked")
     private Set<Compte> likedByComptes = new HashSet<>();
 
-    @OneToMany(mappedBy = "evenement") // OneToMany Un Evenement peut avoir plusieurs avis
+    @OneToMany(mappedBy = "evenement", cascade = CascadeType.ALL) // OneToMany Un Evenement peut avoir plusieurs avis
     private Set<Review> reviews = new HashSet<>();
 
-    @JsonIgnore
-    @ManyToOne(cascade = CascadeType.ALL)
+
+    @ManyToOne
     @JoinColumn(name = "compte_id", referencedColumnName = "id")
     private Compte compte; // ManyToOne Un Evenement est crée par un seul Compte
 

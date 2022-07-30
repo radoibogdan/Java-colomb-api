@@ -34,6 +34,7 @@ public class Compte {
     private Boolean estValide;
     private String numeroSiret;
 
+    @JsonIgnore
     @ManyToMany
     @JoinTable(
             name="compte_liker_evenement",
@@ -42,10 +43,12 @@ public class Compte {
     )
     private Set<Evenement> evenementsLiked = new HashSet<>();
 
-    @OneToMany(mappedBy = "compte") // OneToMany Un Compte peut donner plusieurs Review
+    @JsonIgnore
+    @OneToMany(mappedBy = "compte", cascade = CascadeType.ALL) // OneToMany Un Compte peut donner plusieurs Review
     private Set<Review> reviews = new HashSet<>();
 
-    @OneToMany(mappedBy = "compte") // OneToMany Un Compte peut créer plusieurs Evenement
+    @JsonIgnore
+    @OneToMany(mappedBy = "compte", cascade = CascadeType.ALL) // OneToMany Un Compte peut créer plusieurs Evenement
     private Set<Evenement> evenementsCrees = new HashSet<>();
 
 

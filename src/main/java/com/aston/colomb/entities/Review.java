@@ -18,13 +18,13 @@ public class Review {
     private String contenu;
     private Boolean estSignale;
 
-    @JsonIgnore
-    @ManyToOne(cascade = CascadeType.ALL)
+
+    @ManyToOne
     @JoinColumn(name = "compte_id", referencedColumnName = "id")
     private Compte compte; // ManyToOne Un Review est fait par un seul Compte
 
     @JsonIgnore
-    @ManyToOne(cascade = CascadeType.ALL) // Deleting event Deletes all its reviews
+    @ManyToOne
     @JoinColumn(name = "evenement_id", referencedColumnName = "id")
     private Evenement evenement; // ManyToOne Un Review concerne qu'un seul Evenenement
 

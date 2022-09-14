@@ -21,7 +21,7 @@ public class Evenement {
     private LocalDateTime heureFermeture;
     @PositiveOrZero(message = "Le prix de l'événement ne peut pas être négatif.")
     private Float prix;
-    @Size(min = 10, max = 50, message = "L'adresse de l'événement doit avoir doit avoir entre 10 et 50 caractères.")
+    @Size(min = 10, max = 100, message = "L'adresse de l'événement doit avoir doit avoir entre 10 et 100 caractères.")
     private String adresse;
     private String categorie;
     private String photo;

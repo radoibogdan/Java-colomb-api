@@ -79,7 +79,7 @@ public class EvenementController {
     }
 
     /* ------------------ POST CREATE ------------------ */
-    @PostMapping
+    @PostMapping("/{entrepriseId}")
     @ApiResponses(value = {
             @ApiResponse( responseCode = "201", description = "L'événement a été créé.",
                     content = {
@@ -87,8 +87,9 @@ public class EvenementController {
                     }),
             @ApiResponse(responseCode = "400", description = "Les informations envoyés sont incorrectes.", content = @Content),
     })
-    public ResponseEntity<Evenement> saveEvenement(@Valid @RequestBody Evenement evenement) {
+    public ResponseEntity<Evenement> saveEvenement(@PathVariable Integer entrepriseId, @Valid @RequestBody Evenement evenement) {
         Evenement evenementCree = evenementService.saveEvenement(evenement);
+        evenementService.addCompteToEvenement(entrepriseId, evenementCree);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri()
                 .path("/{id}")
                 .buildAndExpand(evenementCree.getId())

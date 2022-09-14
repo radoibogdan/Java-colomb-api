@@ -1,9 +1,12 @@
 package com.aston.colomb.services;
 
+import com.aston.colomb.dao.CompteRepository;
 import com.aston.colomb.dao.EvenementRepository;
+import com.aston.colomb.entities.Compte;
 import com.aston.colomb.entities.Evenement;
 import com.aston.colomb.entities.EvenementMapper;
 import com.aston.colomb.exception.EvenementNotFoundException;
+import com.aston.colomb.exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,11 +19,13 @@ import java.util.Optional;
 public class EvenementService {
 
     private final EvenementRepository evenementRepository;
+    private final CompteRepository compteRepository;
     private final EvenementMapper evenementMapper;
 
     @Autowired
-    public EvenementService(EvenementRepository evenementRepository, EvenementMapper evenementMapper) {
+    public EvenementService(EvenementRepository evenementRepository, EvenementMapper evenementMapper, CompteRepository compteRepository) {
         this.evenementRepository = evenementRepository;
+        this.compteRepository = compteRepository;
         this.evenementMapper = evenementMapper;
     }
 
@@ -28,8 +33,8 @@ public class EvenementService {
         return evenementRepository.findAll();
     }
 
-    public Evenement saveEvenement(Evenement compte) {
-        return evenementRepository.save(compte);
+    public Evenement saveEvenement(Evenement evenement) {
+        return evenementRepository.save(evenement);
     }
 
     public Optional<Evenement> findEvenementById(Integer id) {
@@ -38,6 +43,16 @@ public class EvenementService {
             throw new EvenementNotFoundException("L'événement que vous voulez accéder n'existe pas.");
         }
         return evenementOptional;
+    }
+
+    public void addCompteToEvenement (Integer entrepriseId, Evenement evenement) {
+        Optional<Compte> compteOptional = compteRepository.findById(entrepriseId);
+        if (!compteOptional.isPresent()) {
+            throw new UserNotFoundException("L'entreprise que vous voulez rajouter à cet événement n'existe pas.");
+        }
+        Compte compteBdd = compteOptional.get();
+        evenement.setCompte(compteBdd);
+        evenementRepository.save(evenement);
     }
 
     public List<Evenement> getAllEvenementsEntreprise(Integer id) {

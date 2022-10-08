@@ -14,6 +14,9 @@ import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ *  Service (CRUD) qui intéragit avec la table Evenement de la base de données
+ */
 @Service
 @Transactional
 public class EvenementService {
@@ -29,14 +32,31 @@ public class EvenementService {
         this.evenementMapper = evenementMapper;
     }
 
+    /**
+     * Récupère tous les événements depuis la bdd
+     *
+     * @return Liste d'événements
+     */
     public List<Evenement> getAllEvenements() {
         return evenementRepository.findAll();
     }
 
+    /**
+     * Créé un nouveau événement dans la bdd
+     *
+     * @param evenement  Evénement à créer
+     * @return           Renvoie l'élément créé
+     */
     public Evenement saveEvenement(Evenement evenement) {
         return evenementRepository.save(evenement);
     }
 
+    /**
+     * Trouve un événement en utilisant son id
+     *
+     * @param id Id événement
+     * @return   Evénement trouvé
+     */
     public Optional<Evenement> findEvenementById(Integer id) {
         Optional<Evenement> evenementOptional = evenementRepository.findById(id);
         if (!evenementOptional.isPresent()) {
@@ -45,6 +65,12 @@ public class EvenementService {
         return evenementOptional;
     }
 
+    /**
+     * Rattache un compte entreprise à un événement existant
+     *
+     * @param entrepriseId Id compte entreprise
+     * @param evenement    Evénement (entité)
+     */
     public void addCompteToEvenement (Integer entrepriseId, Evenement evenement) {
         Optional<Compte> compteOptional = compteRepository.findById(entrepriseId);
         if (!compteOptional.isPresent()) {
@@ -55,14 +81,31 @@ public class EvenementService {
         evenementRepository.save(evenement);
     }
 
+    /**
+     * Récupère tous les événements créés par une entreprise
+     *
+     * @param id Id compte entreprise
+     * @return   Liste événéments trouvés
+     */
     public List<Evenement> getAllEvenementsEntreprise(Integer id) {
         return evenementRepository.findByCompte_Id(id);
     }
 
+    /**
+     * Récupère tous les événements signalés
+     *
+     * @return Liste événements signalés
+     */
     public List<Evenement> getAllEvenementsReported() {
         return evenementRepository.findByEstSignale(true);
     }
 
+    /**
+     * Met à jour la propriété "estSuspendu" de l'événement
+     *
+     * @param id        Id événéments à mettre à jour
+     * @param evenement Evénements (entité)
+     */
     public void updateEvenementEstSuspendu(Integer id, Evenement evenement) {
         Evenement evenementBdd = evenementRepository.findById(id).get();
         if (evenementBdd == null) {
@@ -72,6 +115,11 @@ public class EvenementService {
         evenementRepository.save(evenementBdd);
     }
 
+    /**
+     * Supprime un événement
+     *
+     * @param id Id événements à supprimer
+     */
     public void deleteEvenement(Integer id) {
         Optional<Evenement> evenementOptional = evenementRepository.findById(id);
         if (!evenementOptional.isPresent()) {
@@ -80,6 +128,13 @@ public class EvenementService {
         evenementRepository.delete(evenementOptional.get());
     }
 
+    /**
+     * Modifie une ou plusieurs propriétés d'un événement
+     *
+     * @param id        Id événements à modifier
+     * @param evenement Evénement (entité) à modifier
+     * @return          Evenement modifié
+     */
     public Evenement editEvenement(Integer id, Evenement evenement) {
         Optional<Evenement> evenementOptional = evenementRepository.findById(id);
         if (!evenementOptional.isPresent()) {

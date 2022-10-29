@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Size;
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -17,8 +18,8 @@ public class Compte {
     private Integer id;
     @Email(message = "L'e-mail n'est pas valide.")
     private String email;
-    @Max(value = 30, message = "Le login d'un utilisateur doit avoir maximum 30 caractères.")
-    private String login;
+    @Size(min = 2, max = 30, message = "Le login d'un utilisateur doit avoir maximum 30 caractères.")
+    private String username;
     private String passwordHash;
     @Size(min = 2, max = 30, message = "Le nom d'un utilisateur doit avoir entre 2 et 40 caractères")
     private String nom;
@@ -51,24 +52,36 @@ public class Compte {
     @OneToMany(mappedBy = "compte", cascade = CascadeType.ALL) // OneToMany Un Compte peut créer plusieurs Evenement
     private Set<Evenement> evenementsCrees = new HashSet<>();
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(	name = "user_roles",
+            joinColumns = @JoinColumn(name = "compte_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
+
 
     // ------------------------- CONSTRUCTEURS  --------------------------
     public Compte() {
     }
 
-    public Compte(Integer id, String email, String login, String passwordHash, String nom, String prenom, String role) {
+    public Compte(Integer id, String email, String username, String passwordHash, String nom, String prenom, String role) {
         this.id = id;
         this.email = email;
-        this.login = login;
+        this.username = username;
         this.passwordHash = passwordHash;
         this.nom = nom;
         this.prenom = prenom;
         this.role = role;
     }
 
-    public Compte(String email, String login, String passwordHash, String nom, String prenom, String adresse, Date dob, String photo, String description, String role, Boolean visibiliteReview, Boolean estValide, String numeroSiret, Set<Evenement> evenementsLiked, Set<Review> reviews, Set<Evenement> evenementsCrees) {
+    public Compte(String username, String email, String passwordHash) {
+        this.username = username;
         this.email = email;
-        this.login = login;
+        this.passwordHash = passwordHash;
+    }
+
+    public Compte(String email, String username, String passwordHash, String nom, String prenom, String adresse, Date dob, String photo, String description, String role, Boolean visibiliteReview, Boolean estValide, String numeroSiret, Set<Evenement> evenementsLiked, Set<Review> reviews, Set<Evenement> evenementsCrees) {
+        this.email = email;
+        this.username = username;
         this.passwordHash = passwordHash;
         this.nom = nom;
         this.prenom = prenom;
@@ -85,10 +98,10 @@ public class Compte {
         this.evenementsCrees = evenementsCrees;
     }
 
-    public Compte(Integer id, String email, String login, String passwordHash, String nom, String prenom, String adresse, Date dob, String photo, String description, String role, Boolean visibiliteReview, Boolean estValide, String numeroSiret, Set<Evenement> evenementsLiked, Set<Review> reviews, Set<Evenement> evenementsCrees) {
+    public Compte(Integer id, String email, String username, String passwordHash, String nom, String prenom, String adresse, Date dob, String photo, String description, String role, Boolean visibiliteReview, Boolean estValide, String numeroSiret, Set<Evenement> evenementsLiked, Set<Review> reviews, Set<Evenement> evenementsCrees) {
         this.id = id;
         this.email = email;
-        this.login = login;
+        this.username = username;
         this.passwordHash = passwordHash;
         this.nom = nom;
         this.prenom = prenom;
@@ -104,6 +117,8 @@ public class Compte {
         this.reviews = reviews;
         this.evenementsCrees = evenementsCrees;
     }
+
+
 
     public Integer getId() {
         return id;
@@ -121,12 +136,12 @@ public class Compte {
         this.email = email;
     }
 
-    public String getLogin() {
-        return login;
+    public String getUsername() {
+        return username;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPasswordHash() {
@@ -185,12 +200,12 @@ public class Compte {
         this.description = description;
     }
 
-    public String getRole() {
-        return role;
+    public Set<Role> getRoles() {
+        return roles;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
     public Boolean getVisibiliteReview() {

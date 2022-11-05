@@ -78,6 +78,21 @@ public class EvenementController {
         return ResponseEntity.of(evenementService.findEvenementById(id));
     }
 
+    /* ------------------ GET by Id de Api de Paris ------------------ */
+    // Le ResponseEntity.of renvoie un Body vide + 404 dans le cas d'un Optional vide, OR Body avec le Evenement + 200
+    @GetMapping("/apideparis/{id}")
+    @ApiResponses(value = {
+            @ApiResponse( responseCode = "200", description = "Evénement trouvé",
+                    content = {
+                            @Content( mediaType = "application/json", schema = @Schema(implementation = Evenement.class))
+                    }),
+            @ApiResponse(responseCode = "400", description = "L'id passé dans l'url doit être un entier.", content = @Content),
+            @ApiResponse(responseCode = "404", description = "Evénement non trouvé", content = @Content)
+    })
+    public ResponseEntity<Evenement> findByIdApiDeParis(@PathVariable Integer id) {
+        return ResponseEntity.of(evenementService.findEvenementByIdApiDeParis(id));
+    }
+
     /* ------------------ POST CREATE ------------------ */
     @PostMapping("/{entrepriseId}")
     @ApiResponses(value = {

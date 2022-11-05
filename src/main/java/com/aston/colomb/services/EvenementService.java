@@ -64,6 +64,19 @@ public class EvenementService {
         }
         return evenementOptional;
     }
+    /**
+     * Trouve un événement en utilisant son id de l'api de Paris
+     *
+     * @param idApiDeParis Id Api de Paris de l'événement
+     * @return             Evénement trouvé
+     */
+    public Optional<Evenement> findEvenementByIdApiDeParis(Integer idApiDeParis) {
+        Optional<Evenement> evenementOptional = evenementRepository.findByIdApiParis(idApiDeParis);
+        if (!evenementOptional.isPresent()) {
+            throw new EvenementNotFoundException("L'événement que vous voulez récupérer n'existe pas.");
+        }
+        return evenementOptional;
+    }
 
     /**
      * Rattache un compte entreprise à un événement existant

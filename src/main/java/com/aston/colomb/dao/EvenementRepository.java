@@ -15,4 +15,7 @@ public interface EvenementRepository extends JpaRepository<Evenement, Integer> {
 
     // Find all Evenements that are reported (isSignalé = true)
     List<Evenement> findByEstSignale(Boolean estSignale);
+
+    // Find Evenement by Id de l'Api de Paris
+    Optional<Evenement> findByIdApiParis(Integer idApiParis);
 }

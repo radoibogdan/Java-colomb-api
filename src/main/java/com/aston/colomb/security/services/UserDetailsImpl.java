@@ -41,7 +41,7 @@ public class UserDetailsImpl implements UserDetails {
 
         return new UserDetailsImpl(
                 user.getId(),
-                user.getNom(),
+                user.getUsername(),
                 user.getEmail(),
                 user.getPasswordHash(),
                 authorities);
@@ -58,7 +58,7 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return authorities;
     }
 
     @Override

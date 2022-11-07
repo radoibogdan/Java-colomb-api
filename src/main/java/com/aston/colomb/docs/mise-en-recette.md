@@ -20,3 +20,9 @@ Une fois terminé remettre à `none` cette variable
 ### Accéder à la page de swagger
 Remplacer "localhost" par le nom du site et changer aussi le port "8080" si nécessaire.  
 http://localhost:8080/swagger-ui/index.html#/
+
+### Créer roles en base sur la table roles
+
+INSERT INTO roles(name) VALUES('ROLE_USER');
+INSERT INTO roles(name) VALUES('ROLE_COMPANY');
+INSERT INTO roles(name) VALUES('ROLE_ADMIN');

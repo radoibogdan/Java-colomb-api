@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-11-07T14:50:59+0100",
+    date = "2022-11-06T19:24:21+0100",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 17.0.4 (Oracle Corporation)"
 )
 @Component
@@ -65,6 +65,9 @@ public class EvenementMapperImpl implements EvenementMapper {
         }
         evenementFromBdd.setLongitude( evenementFromApi.getLongitude() );
         evenementFromBdd.setLatitude( evenementFromApi.getLatitude() );
+        if ( evenementFromApi.getIdApiParis() != null ) {
+            evenementFromBdd.setIdApiParis( evenementFromApi.getIdApiParis() );
+        }
         if ( evenementFromApi.getCompte() != null ) {
             evenementFromBdd.setCompte( evenementFromApi.getCompte() );
         }

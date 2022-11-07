@@ -78,8 +78,23 @@ public class EvenementController {
         return ResponseEntity.of(evenementService.findEvenementById(id));
     }
 
+    /* ------------------ GET by Id de Api de Paris ------------------ */
+    // Le ResponseEntity.of renvoie un Body vide + 404 dans le cas d'un Optional vide, OR Body avec le Evenement + 200
+    @GetMapping("/apideparis/{id}")
+    @ApiResponses(value = {
+            @ApiResponse( responseCode = "200", description = "Evénement trouvé",
+                    content = {
+                            @Content( mediaType = "application/json", schema = @Schema(implementation = Evenement.class))
+                    }),
+            @ApiResponse(responseCode = "400", description = "L'id passé dans l'url doit être un entier.", content = @Content),
+            @ApiResponse(responseCode = "404", description = "Evénement non trouvé", content = @Content)
+    })
+    public ResponseEntity<Evenement> findByIdApiDeParis(@PathVariable Integer id) {
+        return ResponseEntity.of(evenementService.findEvenementByIdApiDeParis(id));
+    }
+
     /* ------------------ POST CREATE ------------------ */
-    @PostMapping
+    @PostMapping("/{entrepriseId}")
     @ApiResponses(value = {
             @ApiResponse( responseCode = "201", description = "L'événement a été créé.",
                     content = {
@@ -87,8 +102,9 @@ public class EvenementController {
                     }),
             @ApiResponse(responseCode = "400", description = "Les informations envoyés sont incorrectes.", content = @Content),
     })
-    public ResponseEntity<Evenement> saveEvenement(@Valid @RequestBody Evenement evenement) {
+    public ResponseEntity<Evenement> saveEvenement(@PathVariable Integer entrepriseId, @Valid @RequestBody Evenement evenement) {
         Evenement evenementCree = evenementService.saveEvenement(evenement);
+        evenementService.addCompteToEvenement(entrepriseId, evenementCree);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri()
                 .path("/{id}")
                 .buildAndExpand(evenementCree.getId())

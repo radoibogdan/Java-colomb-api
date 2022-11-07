@@ -21,7 +21,7 @@ public class Evenement {
     private LocalDateTime heureFermeture;
     @PositiveOrZero(message = "Le prix de l'événement ne peut pas être négatif.")
     private Float prix;
-    @Size(min = 10, max = 50, message = "L'adresse de l'événement doit avoir doit avoir entre 10 et 50 caractères.")
+    @Size(min = 10, max = 100, message = "L'adresse de l'événement doit avoir doit avoir entre 10 et 100 caractères.")
     private String adresse;
     private String categorie;
     private String photo;
@@ -35,6 +35,7 @@ public class Evenement {
     private Boolean estSuspendu;
     private double longitude;
     private double latitude;
+    private Integer idApiParis;
 
     @JsonIgnore
     @ManyToMany(mappedBy = "evenementsLiked")
@@ -54,7 +55,7 @@ public class Evenement {
     public Evenement() {
     }
 
-    public Evenement(String nom, LocalDateTime date, LocalDateTime heureOuverture, LocalDateTime heureFermeture, Float prix, String adresse, String categorie, String photo, String description, Integer nombrePersMax, Integer nombreLikes, Integer nombreVues, Boolean estSignale, Boolean estSuspendu, double longitude, double latitude) {
+    public Evenement(String nom, LocalDateTime date, LocalDateTime heureOuverture, LocalDateTime heureFermeture, Float prix, String adresse, String categorie, String photo, String description, Integer nombrePersMax, Integer nombreLikes, Integer nombreVues, Boolean estSignale, Boolean estSuspendu, double longitude, double latitude, Integer idApiParis) {
         this.nom = nom;
         this.date = date;
         this.heureOuverture = heureOuverture;
@@ -71,9 +72,10 @@ public class Evenement {
         this.estSuspendu = estSuspendu;
         this.longitude = longitude;
         this.latitude = latitude;
+        this.idApiParis = idApiParis;
     }
 
-    public Evenement(Integer id, String nom, LocalDateTime date, LocalDateTime heureOuverture, LocalDateTime heureFermeture, Float prix, String adresse, String categorie, String photo, String description, Integer nombrePersMax, Integer nombreLikes, Integer nombreVues, Boolean estSignale, Boolean estSuspendu, double longitude, double latitude) {
+    public Evenement(Integer id, String nom, LocalDateTime date, LocalDateTime heureOuverture, LocalDateTime heureFermeture, Float prix, String adresse, String categorie, String photo, String description, Integer nombrePersMax, Integer nombreLikes, Integer nombreVues, Boolean estSignale, Boolean estSuspendu, double longitude, double latitude, Integer idApiParis) {
         this.id = id;
         this.nom = nom;
         this.date = date;
@@ -91,6 +93,7 @@ public class Evenement {
         this.estSuspendu = estSuspendu;
         this.longitude = longitude;
         this.latitude = latitude;
+        this.idApiParis = idApiParis;
     }
 
     public Integer getId() {
@@ -229,6 +232,13 @@ public class Evenement {
         this.latitude = latitude;
     }
 
+    public Integer getIdApiParis() {
+        return idApiParis;
+    }
+
+    public void setIdApiParis(Integer idApiParis) {
+        this.idApiParis = idApiParis;
+    }
 
     // ---------------- RELATIONSHIP GETTERS SETTERS ----------------
     public Set<Review> getReviews() {
@@ -270,6 +280,7 @@ public class Evenement {
                 ", estSuspendu=" + estSuspendu +
                 ", longitude=" + longitude +
                 ", latitude=" + latitude +
+                ", idApiParis=" + idApiParis +
                 '}';
     }
 }

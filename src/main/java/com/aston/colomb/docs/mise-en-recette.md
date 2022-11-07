@@ -26,3 +26,56 @@ http://localhost:8080/swagger-ui/index.html#/
 INSERT INTO roles(name) VALUES('ROLE_USER');
 INSERT INTO roles(name) VALUES('ROLE_COMPANY');
 INSERT INTO roles(name) VALUES('ROLE_ADMIN');
+
+### Créer user
+
+POST http://localhost:8080/api/auth/signup
+Body (raw): 
+{
+"username": "test",
+"email": "test@mail.fr",
+"password": "test@123",
+"role": ["user"]
+}
+
+### Créer entreprise
+
+POST http://localhost:8080/api/auth/signup
+Body (raw):
+{
+"username": "test",
+"email": "test@mail.fr",
+"password": "test@123",
+"role": ["com"]
+}
+
+### Créer admin
+
+POST http://localhost:8080/api/auth/signup
+Body (raw):
+{
+"username": "test",
+"email": "test@mail.fr",
+"password": "test@123",
+"role": ["admin"]
+}
+
+### Se connecter avec le compte
+
+POST http://localhost:8080/api/auth/signin
+Body (raw):
+{
+"username": "test",
+"password": "test@123"
+}
+
+### Get user
+http://localhost:8080/api/test/user
+
+### Get admin
+http://localhost:8080/api/test/admin
+
+### Get company
+http://localhost:8080/api/test/com
+
+

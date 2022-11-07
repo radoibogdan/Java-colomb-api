@@ -88,7 +88,7 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests().antMatchers("/api/auth/**").permitAll()
                 .antMatchers("/api/test/**").permitAll()
-                .antMatchers("/**").permitAll()
+                .antMatchers("/**").permitAll() // permit all the routers after swagger-ui.html
                 .anyRequest().authenticated();
 
         http.authenticationProvider(authenticationProvider());

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
@@ -21,11 +22,11 @@ public class Compte {
     @Size(min = 2, max = 30, message = "Le login d'un utilisateur doit avoir maximum 30 caractères.")
     private String username;
     private String passwordHash;
-    @Size(min = 2, max = 30, message = "Le nom d'un utilisateur doit avoir entre 2 et 40 caractères")
+    @Size(min = 2, max = 40, message = "Le nom d'un utilisateur doit avoir entre 2 et 40 caractères")
     private String nom;
-    @Size(min = 2, max = 30, message = "Le prénom d'un utilisateur doit avoir entre 2 et 40 caractères")
+    @Size(min = 2, max = 40, message = "Le prénom d'un utilisateur doit avoir entre 2 et 40 caractères")
     private String prenom;
-    @Max(value = 50, message = "L'adresse d'un utilisateur doit avoir maximum 50 caractères.")
+    @Size(min = 2, max = 100, message = "L'adresse d'un utilisateur doit avoir maximum 100 caractères.")
     private String adresse;
     private Date dob;
     private String photo;
@@ -76,6 +77,18 @@ public class Compte {
     public Compte(String username, String email, String passwordHash) {
         this.username = username;
         this.email = email;
+        this.passwordHash = passwordHash;
+    }
+
+    public Compte(String username, String email, String nom, String prenom, String adresse, String description, Date dob, String numeroSiret, String passwordHash) {
+        this.username = username;
+        this.email = email;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.adresse = adresse;
+        this.description = description;
+        this.dob = dob;
+        this.numeroSiret = numeroSiret;
         this.passwordHash = passwordHash;
     }
 

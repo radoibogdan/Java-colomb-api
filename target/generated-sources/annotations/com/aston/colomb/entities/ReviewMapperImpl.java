@@ -32,5 +32,14 @@ public class ReviewMapperImpl implements ReviewMapper {
         if ( reviewFromApi.getEvenement() != null ) {
             reviewFromBdd.setEvenement( reviewFromApi.getEvenement() );
         }
+        if ( reviewFromApi.getId() != null ) {
+            reviewFromBdd.setId( reviewFromApi.getId() );
+        }
+        if ( reviewFromApi.getNombreEtoiles() != null ) {
+            reviewFromBdd.setNombreEtoiles( reviewFromApi.getNombreEtoiles() );
+        }
+        if ( reviewFromApi.getNombreLikes() != null ) {
+            reviewFromBdd.setNombreLikes( reviewFromApi.getNombreLikes() );
+        }
     }
 }

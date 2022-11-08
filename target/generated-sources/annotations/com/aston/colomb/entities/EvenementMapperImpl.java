@@ -18,24 +18,6 @@ public class EvenementMapperImpl implements EvenementMapper {
             return;
         }
 
-        if ( evenementFromApi.getId() != null ) {
-            evenementFromBdd.setId( evenementFromApi.getId() );
-        }
-        if ( evenementFromApi.getNom() != null ) {
-            evenementFromBdd.setNom( evenementFromApi.getNom() );
-        }
-        if ( evenementFromApi.getDate() != null ) {
-            evenementFromBdd.setDate( evenementFromApi.getDate() );
-        }
-        if ( evenementFromApi.getHeureOuverture() != null ) {
-            evenementFromBdd.setHeureOuverture( evenementFromApi.getHeureOuverture() );
-        }
-        if ( evenementFromApi.getHeureFermeture() != null ) {
-            evenementFromBdd.setHeureFermeture( evenementFromApi.getHeureFermeture() );
-        }
-        if ( evenementFromApi.getPrix() != null ) {
-            evenementFromBdd.setPrix( evenementFromApi.getPrix() );
-        }
         if ( evenementFromApi.getAdresse() != null ) {
             evenementFromBdd.setAdresse( evenementFromApi.getAdresse() );
         }
@@ -100,7 +82,7 @@ public class EvenementMapperImpl implements EvenementMapper {
             evenementFromBdd.getReviews().clear();
             Set<Review> set1 = evenementFromApi.getReviews();
             if ( set1 != null ) {
-                evenementFromBdd.getLikedByComptes().addAll( set1 );
+                evenementFromBdd.getReviews().addAll( set1 );
             }
         }
     }

@@ -4,7 +4,6 @@ import com.aston.colomb.dao.CompteRepository;
 import com.aston.colomb.dao.EvenementRepository;
 import com.aston.colomb.entities.Compte;
 import com.aston.colomb.entities.Evenement;
-import com.aston.colomb.entities.EvenementMapper;
 import com.aston.colomb.exception.EvenementNotFoundException;
 import com.aston.colomb.exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;

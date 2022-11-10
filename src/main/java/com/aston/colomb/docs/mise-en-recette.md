@@ -35,6 +35,12 @@ Body (raw):
 "username": "test",
 "email": "test@mail.fr",
 "password": "test@123",
+"nom": "nom test",
+"prenom":"prenom test",
+"adresse": "1 rue de test 75000 Paris",
+"description": "test",
+"dob": "2022-11-08",
+"numeroSiret": null,
 "role": ["user"]
 }
 

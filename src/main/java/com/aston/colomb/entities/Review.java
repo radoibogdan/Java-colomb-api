@@ -1,10 +1,12 @@
 package com.aston.colomb.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
 public class Review {
@@ -23,7 +25,10 @@ public class Review {
     @JoinColumn(name = "compte_id", referencedColumnName = "id")
     private Compte compte; // ManyToOne Un Review est fait par un seul Compte
 
-    @JsonIgnore
+    // Ignore completement la propriété à la création d'un avis et lors d'un get
+    // @JsonIgnore
+    // JsonProperty.Access.WRITE_ONLY => N'apparait pas dans les get, mais permet de créer un review avec un etb  en passant un id
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ManyToOne
     @JoinColumn(name = "evenement_id", referencedColumnName = "id")
     private Evenement evenement; // ManyToOne Un Review concerne qu'un seul Evenenement

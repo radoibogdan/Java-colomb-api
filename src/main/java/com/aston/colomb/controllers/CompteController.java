@@ -2,6 +2,9 @@ package com.aston.colomb.controllers;
 
 import com.aston.colomb.entities.Compte;
 import com.aston.colomb.services.CompteService;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -39,5 +42,15 @@ public class CompteController {
                 .buildAndExpand(compteCree.getId())
                 .toUri();
         return ResponseEntity.created(uri).body(compteCree); // created = 201
+    }
+
+    /* ------------------ DELETE ------------------ */
+    @DeleteMapping("/{id}")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Compte supprimé",content = @Content),
+            @ApiResponse(responseCode = "400", description = "L'id du compte passé dans l'url doit être un entier.", content = @Content),
+    })
+    public void deleteCompte(@PathVariable Integer id) {
+        compteService.deleteCompte(id);
     }
 }

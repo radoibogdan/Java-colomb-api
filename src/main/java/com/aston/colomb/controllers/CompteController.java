@@ -1,14 +1,17 @@
 package com.aston.colomb.controllers;
 
 import com.aston.colomb.entities.Compte;
+import com.aston.colomb.entities.Evenement;
 import com.aston.colomb.services.CompteService;
 import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -29,7 +32,7 @@ public class CompteController {
     }
 
     // Le ResponseEntity.of renvoie un Body vide + 404 dans le cas d'un Optional vide, OR Body avec le Compte + 200
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Compte> findById(@PathVariable Integer id) {
         return ResponseEntity.of(compteService.findCompteById(id));
     }
@@ -52,5 +55,19 @@ public class CompteController {
     })
     public void deleteCompte(@PathVariable Integer id) {
         compteService.deleteCompte(id);
+    }
+
+    /* ------------------ PATCH EDIT ------------------ */
+    @PatchMapping("/{id}")
+    @ApiResponses(value = {
+            @ApiResponse( responseCode = "200", description = "Le compte a été modifié.",
+                    content = {
+                            @Content( mediaType = "application/json", schema = @Schema(implementation = Compte.class))
+                    }),
+            @ApiResponse(responseCode = "400", description = "Les informations envoyés sont incorrectes.", content = @Content),
+            @ApiResponse(responseCode = "404", description = "Compte non trouvé", content = @Content)
+    })
+    public Compte editCompte(@PathVariable Integer id, @Valid @RequestBody Compte compte) {
+        return compteService.editCompte(id, compte); // created = 201
     }
 }

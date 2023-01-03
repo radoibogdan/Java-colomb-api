@@ -80,7 +80,7 @@ public class Compte {
         this.passwordHash = passwordHash;
     }
 
-    public Compte(String username, String email, String nom, String prenom, String adresse, String description, Date dob, String numeroSiret, String passwordHash) {
+    public Compte(String username, String email, String nom, String prenom, String adresse, String description, Date dob, String numeroSiret, String passwordHash, String photo, Boolean estValide) {
         this.username = username;
         this.email = email;
         this.nom = nom;
@@ -90,6 +90,8 @@ public class Compte {
         this.dob = dob;
         this.numeroSiret = numeroSiret;
         this.passwordHash = passwordHash;
+        this.photo = photo;
+        this.estValide = estValide;
     }
 
     public Compte(String email, String username, String passwordHash, String nom, String prenom, String adresse, Date dob, String photo, String description, String role, Boolean visibiliteReview, Boolean estValide, String numeroSiret, Set<Evenement> evenementsLiked, Set<Review> reviews, Set<Evenement> evenementsCrees) {

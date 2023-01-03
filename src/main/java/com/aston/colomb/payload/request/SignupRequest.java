@@ -38,6 +38,11 @@ public class SignupRequest {
     @Size(min = 3, max = 30)
     private String description;
 
+    @Size(min = 3, max = 150)
+    private String photo;
+
+    private Boolean estValide;
+
     public String getUsername() {
         return username;
     }
@@ -108,6 +113,22 @@ public class SignupRequest {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    public Boolean getEstValide() {
+        return estValide;
+    }
+
+    public void setEstValide(Boolean estValide) {
+        this.estValide = estValide;
     }
 
 

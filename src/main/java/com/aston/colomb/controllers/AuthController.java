@@ -93,7 +93,7 @@ public class AuthController {
         //         encoder.encode(signUpRequest.getPassword()));
 
         Compte user = new Compte(signUpRequest.getUsername(),signUpRequest.getEmail(), signUpRequest.getNom(), signUpRequest.getPrenom(), signUpRequest.getAdresse(), signUpRequest.getDescription(), signUpRequest.getDob(),signUpRequest.getNumeroSiret(),
-                 encoder.encode(signUpRequest.getPassword()));
+                 encoder.encode(signUpRequest.getPassword()), signUpRequest.getPhoto(), false);
 
         Set<String> strRoles = signUpRequest.getRole();
         Set<Role> roles = new HashSet<>();

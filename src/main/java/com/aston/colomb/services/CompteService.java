@@ -67,4 +67,8 @@ public class CompteService {
         compteRepository.save(compteBdd);
         return compteBdd;
     }
+
+    public List<Object[]> getAllReviewsByCompte(Integer id) {
+        return compteRepository.findUserAndAllHisReviewsSql(id);
+    }
 }

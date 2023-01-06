@@ -3,6 +3,8 @@ package com.aston.colomb.controllers;
 import com.aston.colomb.entities.Compte;
 import com.aston.colomb.entities.Evenement;
 import com.aston.colomb.services.CompteService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -69,5 +71,11 @@ public class CompteController {
     })
     public Compte editCompte(@PathVariable Integer id, @Valid @RequestBody Compte compte) {
         return compteService.editCompte(id, compte); // created = 201
+    }
+
+    // Renvoie un array d'avis
+    @GetMapping("/{id}/reviews")
+    public List<Object[]> findReviewsByCompteId(@PathVariable Integer id) throws JsonProcessingException {
+        return compteService.getAllReviewsByCompte(id);
     }
 }

@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import javax.validation.Valid;
 import java.net.URI;
@@ -27,12 +28,14 @@ public class CompteController {
     }
 
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public List<Compte> findAll() {
         return compteService.getAllComptes();
     }
 
     // Le ResponseEntity.of renvoie un Body vide + 404 dans le cas d'un Optional vide, OR Body avec le Compte + 200
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Compte> findById(@PathVariable Integer id) {
         return ResponseEntity.of(compteService.findCompteById(id));
     }
@@ -49,6 +52,7 @@ public class CompteController {
 
     /* ------------------ DELETE ------------------ */
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Compte supprimé",content = @Content),
             @ApiResponse(responseCode = "400", description = "L'id du compte passé dans l'url doit être un entier.", content = @Content),
@@ -59,6 +63,7 @@ public class CompteController {
 
     /* ------------------ PATCH EDIT ------------------ */
     @PatchMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     @ApiResponses(value = {
             @ApiResponse( responseCode = "200", description = "Le compte a été modifié.",
                     content = {
